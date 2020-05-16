@@ -15,7 +15,7 @@ class DQueue(object):
     def __len__(self):
         """Return length of queue"""
         return len(self._que)
-    
+
     def first(self):
         """Return (but do not remove) the first element of deque D; 
         an error occurs if the deque is empty."""
@@ -50,7 +50,22 @@ class DQueue(object):
         if self.is_empty():
             raise Empty("Queue is empty")
         else:
-            self._que.pop()
+           return self._que.pop()
+
+
+def check_palindrome(string):
+    q = DQueue()
+    for each in string:
+        q.add_last(each)
+    length = len(q)//2
+    while length:
+        if q.delete_first() != q.delete_last():
+            return False
+        length -= 1
+
+    if len(q) <= 1:
+        return True
+
 
 if __name__ == "__main__":
     q = DQueue()
@@ -62,3 +77,9 @@ if __name__ == "__main__":
     q.delete_last()
     q.delete_first()
     q.delete_last()
+
+    # Palindrome Checker
+    strings = ["palin", "dad", "mom", "funggnuf"]
+    for each in strings:
+        str = "" if check_palindrome(each) else "not"
+        print("{0} is {1} palindrome".format(each, str))
