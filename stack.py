@@ -62,9 +62,11 @@ def markupTagMatching(html):
     j = html.find('<', 0)
     while j != -1:
         k = html.find('>', j)
-        if k == -1:
+        k1 = html.find(' ', j)
+        if k == -1 and k1 == -1:
             return False
         else:
+            if (k1 < k and k1 != -1): k = k1
             tag = html[j+1:k]
             if not tag.startswith('/'):
                 St.push(tag)
@@ -108,7 +110,7 @@ if __name__ == "__main__":
     print("Expression is {0}".format(str))
     
     # Match tag in markup language
-    html = """<html><head><title>This is a title</title></head><body><p>Hello world!</p></body></html>"""
+    html = """<html><head><title fontsize=10 font='Ariel'>This is a title</title></head><body><p>Hello world!</p></body></html>"""
     html2 = """<html><head><title>This is a title</title><body>Hello world!</p></body></html>"""
     str = "valid" if markupTagMatching(html) else "invalid"
     print("Markup format is {0}".format(str))
